@@ -6,25 +6,40 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
       - name: Setup
         uses: actions/setup-node@v2
+
+      - name: Install zip
+        uses: montudor/action-zip@v1
+
       - name: Dependencies
         run: npm ci
+
       - name: Build
         run: npm run build
+
       - name: Retrieve private key
+        if: startsWith(github.ref, 'refs/tags/')
         run: echo "$PRIVATE_KEY" > key.pem
         shell: bash
-        if: startsWith(github.ref, 'refs/tags/')
         env:
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+
       - name: Pack
-        run: npm run pack
         if: startsWith(github.ref, 'refs/tags/')
+        run: npm run pack
+
+      - name: Zip
+        if: startsWith(github.ref, 'refs/tags/')
+        run: zip -q -r ../home-assistant.zip *
+        working-directory: dist
+
       - name: Upload assets
         if: startsWith(github.ref, 'refs/tags/')
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: home-assistant.crx
+          file: home-assistant.*
           tag: ${{ github.ref }}
+          file_glob: true
