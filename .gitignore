@@ -2,3 +2,6 @@ node_modules
 dist
 .husky/_
 .husky/.gitignore
+
+*.crx
+*.pem

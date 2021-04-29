@@ -73,6 +73,7 @@
         <div class="column center">
           <div class="hide-header is-relative" v-if="options.hideHeader" :style="hideStyle"></div>
           <iframe
+            v-if="options.url"
             :src="options.url"
             :width="options.width"
             :height="options.height"
@@ -80,6 +81,11 @@
             class="is-relative"
             :style="iframeStyle"
           ></iframe>
+          <div
+            v-else
+            class="placeholder is-relative has-background-light"
+            :style="{ height: options.height + 'px', width: options.width + 'px', ...iframeStyle }"
+          ></div>
         </div>
       </div>
     </div>
@@ -139,6 +145,7 @@
   @import '~bulma/sass/base/_all.sass';
   @import '~bulma/sass/helpers/position.sass';
   @import '~bulma/sass/helpers/spacing.sass';
+  @import '~bulma/sass/helpers/color.sass';
 
   @import '~bulma/sass/layout/section.sass';
   @import '~bulma/sass/elements/container.sass';
@@ -155,6 +162,9 @@
   .hide-header {
     background: #fff;
     z-index: 2;
+    margin: auto;
+  }
+  .placeholder {
     margin: auto;
   }
   .center {

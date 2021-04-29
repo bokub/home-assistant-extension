@@ -1,19 +1,29 @@
 body {
   margin: 0;
-}
 
-#alert {
-  min-width: 250px;
-  padding: 5px 15px;
-  &.is-hidden {
-    display: none;
+  iframe {
+    margin-bottom: -5px;
   }
 
-  .title {
-    font-size: 1.3em;
-  }
+  #alert {
+    min-width: 250px;
+    padding: 5px 15px;
+    &.is-hidden {
+      display: none;
+    }
 
-  .subtitle {
-    font-size: 1.1em;
+    .title {
+      font-size: 1.3em;
+    }
+
+    .subtitle {
+      font-size: 1.1em;
+    }
+
+    a {
+      color: #485fc7;
+      cursor: pointer;
+      text-decoration: none;
+    }
   }
 }

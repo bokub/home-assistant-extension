@@ -1,24 +1,26 @@
+const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const options = {
   entry: {
     popup: './src/popup/popup.js',
-    options: './src/options/options.js',
+    options: './src/options/index.js',
+  },
+  output: {
+    path: path.resolve(__dirname, 'dist'),
   },
   plugins: [
-    new VueLoaderPlugin(),
-    new CopyPlugin({
-      patterns: [
-        { context: 'src', from: '**/*.{png,json}', to: '.' }, // Keep structure
-        { context: 'src', from: '**/*.html', to: '[name][ext]' }, // Flatten
-      ],
-    }),
-    new MiniCssExtractPlugin(),
+    new CleanWebpackPlugin(), // Clean dist folder
+    new VueLoaderPlugin(), // Handle Vue files
+    new CopyPlugin({ patterns: [{ context: 'assets', from: '**/*.{png,html,json}', to: '.' }] }), // Copy assets
+    new MiniCssExtractPlugin(), // Extract CSS to separate file
   ],
   module: {
     rules: [
+      // SASS/SCSS files
       {
         test: /\.s[ac]ss$/i,
         use: [
@@ -27,13 +29,15 @@ const options = {
           { loader: 'sass-loader', options: { implementation: require('sass') } },
         ],
       },
+      // Vue files
       { test: /\.vue$/, loader: 'vue-loader' },
     ],
   },
 };
 
-if (process.env.NODE_ENV === 'development') {
-  options.devtool = 'cheap-module-eval-source-map';
-}
-
-module.exports = options;
+module.exports = (env, argv) => {
+  if (argv.mode === 'development') {
+    options.devtool = 'inline-source-map'; // Prevents chrome errors in dev mode
+  }
+  return options;
+};
