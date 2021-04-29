@@ -1,7 +1,7 @@
 {
   "name": "Home Assistant",
-  "description": "Build an Extension!",
-  "version": "1.0.0",
+  "description": "A quick shortcut to your Home Assistant",
+  "version": "%version%",
   "manifest_version": 3,
   "options_page": "options.html",
   "permissions": ["storage"],

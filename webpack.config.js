@@ -3,7 +3,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-
+const version = require('./package.json').version;
 const options = {
   entry: {
     popup: './src/popup/popup.js',
@@ -15,7 +15,17 @@ const options = {
   plugins: [
     new CleanWebpackPlugin(), // Clean dist folder
     new VueLoaderPlugin(), // Handle Vue files
-    new CopyPlugin({ patterns: [{ context: 'assets', from: '**/*.{png,html,json}', to: '.' }] }), // Copy assets
+    new CopyPlugin({
+      patterns: [
+        { context: 'assets', from: '**/*.{png,html}', to: '.' },
+        {
+          context: 'assets',
+          from: 'manifest.json',
+          to: '.',
+          transform: (c) => c.toString().replace('%version%', version),
+        },
+      ],
+    }), // Copy assets
     new MiniCssExtractPlugin(), // Extract CSS to separate file
   ],
   module: {

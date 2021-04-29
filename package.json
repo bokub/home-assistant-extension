@@ -22,6 +22,7 @@
     "bulma": "^0.9.2",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
     "copy-webpack-plugin": "^8.1.1",
+    "crx": "^5.0.1",
     "css-loader": "^5.2.4",
     "husky": "^6.0.0",
     "mini-css-extract-plugin": "^1.5.0",

@@ -1,0 +1,30 @@
+on: push
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup
+        uses: actions/setup-node@v2
+      - name: Dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Retrieve private key
+        run: echo "$PRIVATE_KEY" > key.pem
+        shell: bash
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+      - name: Pack
+        run: npm run pack
+        if: startsWith(github.ref, 'refs/tags/')
+      - name: Upload assets
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: home-assistant.crx
+          tag: ${{ github.ref }}
