@@ -1,12 +1,13 @@
 {
   "name": "home-assistant-extension",
-  "version": "0.1.0",
-  "description": "Home Assistant extension for Chrome",
+  "version": "0.2.0",
+  "description": "Home Assistant extension for Chrome and Firefox",
   "private": true,
   "scripts": {
-    "dev": "webpack --mode=development --watch --progress",
-    "build": "webpack --mode=production --progress",
-    "pack": "crx pack dist -o home-assistant.crx -p key.pem",
+    "dev:chrome": "webpack --mode=development --watch --progress",
+    "dev:firefox": "npm run dev:chrome -- --env browser=firefox",
+    "build:chrome": "webpack --mode=production --progress",
+    "build:firefox": "npm run build:chrome -- --env browser=firefox",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install"
   },

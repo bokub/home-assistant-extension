@@ -16,30 +16,27 @@ jobs:
       - name: Dependencies
         run: npm ci
 
-      - name: Build
-        run: npm run build
+      - name: Build for Chrome
+        run: npm run build:chrome
 
-      - name: Retrieve private key
-        if: startsWith(github.ref, 'refs/tags/')
-        run: echo "$PRIVATE_KEY" > key.pem
-        shell: bash
-        env:
-          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+      - name: Build for Firefox
+        run: npm run build:firefox
 
-      - name: Pack
+      - name: Zip for Chrome
         if: startsWith(github.ref, 'refs/tags/')
-        run: npm run pack
+        run: zip -q -r ../../home-assistant-chrome.zip *
+        working-directory: dist/chrome
 
-      - name: Zip
+      - name: Zip for Firefox
         if: startsWith(github.ref, 'refs/tags/')
-        run: zip -q -r ../home-assistant.zip *
-        working-directory: dist
+        run: zip -q -r ../../home-assistant-firefox.zip *
+        working-directory: dist/firefox
 
       - name: Upload assets
         if: startsWith(github.ref, 'refs/tags/')
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: home-assistant.*
+          file: home-assistant-*
           tag: ${{ github.ref }}
           file_glob: true

@@ -1,4 +1,4 @@
-# Home Assistant Chrome Extension
+# Home Assistant Extension for Chrome and Firefox
 
 > Unofficial extension to quickly access your Home Assistant dashboard from everywhere
 
@@ -12,7 +12,7 @@
 
 In your Lovelace dashboard, **create a new view** and add a few cards that you want to see in your extension
 
-Here are a few tips: 
+Here are a few tips:
 
 - If you have only one card, activate the "panel mode" option for a better look
 - If you want to match your browser color scheme, you can choose a specific theme just for this view
@@ -24,6 +24,7 @@ Here are a few tips:
 **Pin** the extension in Chrome so you can access it easily
 
 In the extension options (right-click on the icon > options):
+
 - Set the URL of your view as seen in your browser, for example `https://my-home-assistant.com/lovelace/extension`
 - Adjust width and height so everything looks good
 - You can choose to crop the upper part of your view to hide the page header. By default, the size of the header is 56 pixels

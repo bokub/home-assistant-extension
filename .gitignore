@@ -4,5 +4,3 @@ dist
 .husky/.gitignore
 
 *.zip
-*.crx
-*.pem

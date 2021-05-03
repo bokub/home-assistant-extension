@@ -12,6 +12,8 @@ chrome.storage.sync.get(['options'], ({ options }) => {
     if (options.hideHeader) {
       document.body.style.marginTop = `-${+options.headerHeight}px`;
     }
+    document.body.style.width = `${options.width || '300'}px`;
+    document.body.style.height = `${options.height || '300'}px`;
   } else {
     let alert = document.getElementById('alert');
     alert.classList.remove('is-hidden');
