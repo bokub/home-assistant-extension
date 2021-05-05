@@ -11,7 +11,10 @@
   "options_ui": {
     "page": "options.html"
   },
-  "permissions": ["storage"],
+  "permissions": ["storage", "contextMenus"],
+  "background": {
+    "scripts": ["background.js"]
+  },
   "browser_action": {
     "default_popup": "popup.html",
     "default_icon": {

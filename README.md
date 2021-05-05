@@ -20,10 +20,11 @@ Here are a few tips:
 - I suggest you to choose a specific URL for the view. For example: "extension"
 
 **Install** the extension from the [Chrome Web Store](https://chrome.google.com/webstore/detail/home-assistant/hpoiflhmfklhfcfpibmdmpeonphmdbda)
+or [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/home-assistant/)
 
-**Pin** the extension in Chrome so you can access it easily
+**Pin** the extension in Chrome so it's always visible (it's already done by default in Firefox)
 
-In the extension options (right-click on the icon > options):
+Open the extension options (right-click the icon > _Configure_), then:
 
 - Set the URL of your view as seen in your browser, for example `https://my-home-assistant.com/lovelace/extension`
 - Adjust width and height so everything looks good

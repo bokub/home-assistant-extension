@@ -3,6 +3,8 @@ const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const ReplacePlugin = require('webpack-plugin-replace');
+
 const version = require('./package.json').version;
 
 module.exports = (env, argv) => {
@@ -11,6 +13,7 @@ module.exports = (env, argv) => {
     entry: {
       popup: './src/popup/popup.js',
       options: './src/options/index.js',
+      background: './src/background.js',
     },
     output: {
       path: path.resolve(__dirname, 'dist', browser),
@@ -44,6 +47,15 @@ module.exports = (env, argv) => {
         },
         // Vue files
         { test: /\.vue$/, loader: 'vue-loader' },
+        // Handle special comments: /* rm-<browser> */
+        {
+          test: /\.js$/,
+          loader: 'string-replace-loader',
+          options: {
+            search: new RegExp(`^.+\\* rm-${browser} \\*.+$`, 'gm'),
+            replace: '',
+          },
+        },
       ],
     },
     devtool: argv.mode === 'development' ? 'inline-source-map' : false, // Prevents chrome errors in dev mode

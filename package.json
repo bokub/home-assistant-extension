@@ -1,6 +1,6 @@
 {
   "name": "home-assistant-extension",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Home Assistant extension for Chrome and Firefox",
   "private": true,
   "scripts": {
@@ -31,6 +31,7 @@
     "pretty-quick": "^3.1.0",
     "sass": "^1.32.11",
     "sass-loader": "^11.0.1",
+    "string-replace-loader": "^3.0.1",
     "vue": "^2.6.12",
     "vue-loader": "^15.9.6",
     "vue-template-compiler": "^2.6.12",

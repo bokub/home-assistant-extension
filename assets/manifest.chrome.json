@@ -4,7 +4,10 @@
   "version": "%version%",
   "manifest_version": 3,
   "options_page": "options.html",
-  "permissions": ["storage"],
+  "permissions": ["storage", "contextMenus"],
+  "background": {
+    "service_worker": "background.js"
+  },
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
