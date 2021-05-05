@@ -71,16 +71,17 @@
         </div>
 
         <div class="column center">
-          <div class="hide-header is-relative" v-if="options.hideHeader" :style="hideStyle"></div>
-          <iframe
-            v-if="options.url"
-            :src="options.url"
-            :width="options.width"
-            :height="options.height"
-            frameborder="0"
-            class="is-relative"
-            :style="iframeStyle"
-          ></iframe>
+          <div class="subtitle">Preview</div>
+          <div class="iframe-wrapper is-relative" v-if="options.url" :style="wrapperStyle">
+            <iframe
+              :src="options.url"
+              :width="options.width"
+              :height="options.height"
+              class="is-relative"
+              :style="iframeStyle"
+              frameborder="0"
+            ></iframe>
+          </div>
           <div
             v-else
             class="placeholder is-relative has-background-light"
@@ -108,15 +109,17 @@
       };
     },
     computed: {
-      hideStyle() {
+      actualHeaderHeight() {
+        return this.options.hideHeader ? this.options.headerHeight : 0;
+      },
+      wrapperStyle() {
         return {
-          height: this.options.headerHeight + 'px',
+          height: this.options.height - this.actualHeaderHeight + 'px',
           width: this.options.width + 'px',
-          top: -this.options.headerHeight + 'px',
         };
       },
       iframeStyle() {
-        return { top: this.options.hideHeader ? -2 * this.options.headerHeight + 'px' : 0 };
+        return { top: -this.actualHeaderHeight + 'px' };
       },
     },
     created() {
@@ -158,13 +161,12 @@
   input[type='range'] {
     width: 100%;
   }
-
-  .hide-header {
-    background: #fff;
-    z-index: 2;
-    margin: auto;
+  .iframe-wrapper {
+    overflow: hidden;
+    box-shadow: -4px 4px 10px rgba(0, 0, 0, 0.2);
   }
-  .placeholder {
+  .placeholder,
+  .iframe-wrapper {
     margin: auto;
   }
   .center {
