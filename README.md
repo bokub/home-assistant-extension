@@ -1,5 +1,10 @@
 # Home Assistant Extension for Chrome and Firefox
 
+![Version](https://flat.badgen.net/github/release/bokub/home-assistant-extension?label=version&color=cyan)
+[![Chrome users](https://flat.badgen.net/chrome-web-store/users/hpoiflhmfklhfcfpibmdmpeonphmdbda?label=chrome%20users&color=green)][chrome]
+[![Firefox users](https://flat.badgen.net/amo/users/home-assistant?label=firefox%20users&color=orange)][firefox]
+[![Code style](https://flat.badgen.net/badge/code%20style/prettier/ff69b4)](https://github.com/bokub/prettier-config)
+
 > Unofficial extension to quickly access your Home Assistant dashboard from everywhere
 
 <p align="center">
@@ -16,11 +21,10 @@ Here are a few tips:
 
 - If you have only one card, activate the "panel mode" option for a better look
 - If you want to match your browser color scheme, you can choose a specific theme just for this view
-- You can completely hide the view if you don't want it to show in your existing dasbhoard, it won't affect the extension
+- You can completely hide the view if you don't want it to show in your existing dashboard, it won't affect the extension
 - I suggest you to choose a specific URL for the view. For example: "extension"
 
-**Install** the extension from the [Chrome Web Store](https://chrome.google.com/webstore/detail/home-assistant/hpoiflhmfklhfcfpibmdmpeonphmdbda)
-or [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/home-assistant/)
+**Install** the extension from the [Chrome Web Store][chrome] or [Firefox Add-ons][firefox]
 
 **Pin** the extension in Chrome so it's always visible (it's already done by default in Firefox)
 
@@ -31,3 +35,6 @@ Open the extension options (right-click the icon > _Configure_), then:
 - You can choose to crop the upper part of your view to hide the page header. By default, the size of the header is 56 pixels
 
 If you like this extension, please ⭐ this repo and leave a nice review in the Chrome Web Store!
+
+[chrome]: https://chrome.google.com/webstore/detail/home-assistant/hpoiflhmfklhfcfpibmdmpeonphmdbda
+[firefox]: https://addons.mozilla.org/firefox/addon/home-assistant/
