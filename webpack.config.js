@@ -3,7 +3,6 @@ const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const ReplacePlugin = require('webpack-plugin-replace');
 
 const version = require('./package.json').version;
 
