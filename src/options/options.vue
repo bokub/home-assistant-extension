@@ -21,7 +21,7 @@
               <div class="field">
                 <label class="label">Height</label>
                 <div class="control">
-                  <input v-model="options.height" type="range" min="25" max="580" value="300" />
+                  <input v-model="options.height" type="range" min="25" max="655" value="300" />
                 </div>
               </div>
             </div>
@@ -29,7 +29,7 @@
               <div class="field">
                 <label class="label">Width</label>
                 <div class="control">
-                  <input v-model="options.width" type="range" min="25" max="780" value="300" />
+                  <input v-model="options.width" type="range" min="25" max="800" value="300" />
                 </div>
               </div>
             </div>

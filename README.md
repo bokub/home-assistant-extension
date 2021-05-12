@@ -34,7 +34,24 @@ Open the extension options (right-click the icon > _Configure_), then:
 - Adjust width and height so everything looks good
 - You can choose to crop the upper part of your view to hide the page header. By default, the size of the header is 56 pixels
 
-If you like this extension, please ⭐ this repo and leave a nice review in the Chrome Web Store!
+If you like this extension, please ⭐ this repo and leave a nice review in the stores!
 
 [chrome]: https://chrome.google.com/webstore/detail/home-assistant/hpoiflhmfklhfcfpibmdmpeonphmdbda
 [firefox]: https://addons.mozilla.org/firefox/addon/home-assistant/
+
+## Development
+
+The build output is the `dist` folder
+
+```bash
+# Install dependencies
+npm install
+
+# Build extensions from source
+npm run build:chrome
+npm run build:firefox
+
+# Development mode
+npm run dev:chrome
+npm run dev:firefox
+```
