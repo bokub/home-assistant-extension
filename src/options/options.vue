@@ -1,106 +1,161 @@
 <template>
   <div class="section">
-    <div class="container">
-      <div class="columns">
-        <div class="column form is-relative is-narrow">
-          <div class="subtitle">Options</div>
-          <div class="field">
+    <div class="columns">
+      <div class="column form is-relative" style="min-width: 628px">
+        <div class="subtitle">Options</div>
+        <div class="columns">
+          <div class="field column" style="flex: 2">
             <label class="label">URL</label>
             <div class="control">
               <input
                 class="input"
                 type="text"
-                placeholder="URL of the Home Assistant page you want to display"
-                v-model="options.url"
+                placeholder="URL of the default Home Assistant page"
+                v-model="options.dashboards[0].url"
               />
             </div>
           </div>
-
-          <div class="columns">
-            <div class="column preview">
-              <div class="field">
-                <label class="label">Height</label>
-                <div class="control">
-                  <input v-model="options.height" type="range" min="25" max="655" value="300" />
-                </div>
-              </div>
-            </div>
-            <div class="column">
-              <div class="field">
-                <label class="label">Width</label>
-                <div class="control">
-                  <input v-model="options.width" type="range" min="25" max="800" value="300" />
-                </div>
-              </div>
+          <div class="field column">
+            <label class="label">Title</label>
+            <div class="control" style="flex: 1">
+              <input
+                class="input"
+                type="text"
+                maxlength="25"
+                placeholder="Title of the dashboard"
+                v-model="options.dashboards[0].title"
+              />
             </div>
           </div>
+        </div>
 
-          <div class="columns">
-            <div class="column">
-              <div class="field">
-                <label class="label">Header visibility</label>
-                <label class="checkbox p-2">
-                  <input type="checkbox" v-model="options.hideHeader" />
-                  Hide header
-                </label>
-              </div>
-            </div>
-            <div class="column">
-              <div class="field">
-                <label class="label">Header height</label>
-                <div class="control">
-                  <input
-                    class="input"
-                    type="number"
-                    placeholder="56"
-                    v-model="options.headerHeight"
-                    :disabled="!options.hideHeader"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="field">
+        <div
+          class="columns"
+          v-for="(dashboard, index) in options.dashboards"
+          v-if="options.dashboards[0] !== dashboard"
+        >
+          <div class="field column" style="flex: 2">
+            <label class="label">Additional URL</label>
             <div class="control">
-              <button class="button is-primary is-fullwidth" @click="save" :disabled="saved">
-                {{ saved ? 'Saved !' : 'Save' }}
-              </button>
+              <input
+                class="input"
+                type="text"
+                placeholder="URL of the additional Home Assistant page"
+                v-model="dashboard.url"
+              />
+            </div>
+          </div>
+          <div class="field column" style="flex: 1">
+            <label class="label">Additional Title</label>
+            <div class="control">
+              <input
+                class="input"
+                type="text"
+                maxlength="25"
+                placeholder="Title of the dashboard"
+                v-model="dashboard.title"
+              />
+            </div>
+          </div>
+          <div class="column" style="flex: none">
+            <button class="button is-delete" @click="removeDashboard(index)">Remove</button>
+          </div>
+        </div>
+
+        <div>
+          <button
+            class="button is-primary addDashboardButton"
+            @click="addDashboard"
+            :disabled="dashboardsLimitReached()"
+          >
+            Add dashboard
+          </button>
+        </div>
+
+        <div class="columns">
+          <div class="column">
+            <div class="field">
+              <label class="label">Height</label>
+              <div class="control">
+                <input v-model="options.height" type="range" min="25" max="600" value="300" />
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="field">
+              <label class="label">Width</label>
+              <div class="control">
+                <input v-model="options.width" type="range" min="25" max="800" value="300" />
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="column center">
-          <div class="subtitle">Preview</div>
-          <div class="iframe-wrapper is-relative" v-if="options.url" :style="wrapperStyle">
-            <iframe
-              :src="options.url"
-              :width="options.width"
-              :height="options.height"
-              class="is-relative"
-              :style="iframeStyle"
-              frameborder="0"
-            ></iframe>
+        <div class="columns">
+          <div class="column">
+            <div class="field">
+              <label class="label">Header visibility</label>
+              <label class="checkbox p-2">
+                <input type="checkbox" v-model="options.hideHeader" />
+                Hide header
+              </label>
+            </div>
           </div>
-          <div
-            v-else
-            class="placeholder is-relative has-background-light"
-            :style="{ height: options.height + 'px', width: options.width + 'px', ...iframeStyle }"
-          ></div>
+          <div class="column">
+            <div class="field">
+              <label class="label">Header height</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="number"
+                  placeholder="56"
+                  v-model="options.headerHeight"
+                  :disabled="!options.hideHeader"
+                />
+              </div>
+            </div>
+          </div>
         </div>
+
+        <div class="field">
+          <div class="control">
+            <button class="button is-primary is-fullwidth" @click="save" :disabled="saved">
+              {{ saved ? 'Saved!' : 'Save' }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="column center" style="float: right">
+        <div class="subtitle">Preview</div>
+        <div v-if="options.dashboards[0].url" :style="wrapperStyle" style="margin: 0 auto">
+          <Popup :previewOptions="options" />
+        </div>
+        <div
+          v-else
+          class="placeholder is-relative has-background-light"
+          :style="{ height: options.height + 'px', width: options.width + 'px', ...iframeStyle }"
+        ></div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+  import Popup from '../popup/popup.vue';
   export default {
-    data() {
+    components: { Popup },
+    data: function () {
       return {
         loaded: false,
         saved: false,
         options: {
-          url: '',
+          dashboards: [
+            {
+              url: '',
+              title: '',
+            },
+          ],
           height: 300,
           width: 300,
           headerHeight: 56,
@@ -139,6 +194,15 @@
           }, 2000);
         });
       },
+      addDashboard() {
+        this.options.dashboards.push({ url: '', title: '' });
+      },
+      removeDashboard(index) {
+        this.options.dashboards.splice(index, 1);
+      },
+      dashboardsLimitReached() {
+        return this.options.dashboards.length >= 5;
+      },
     },
   };
 </script>
@@ -161,12 +225,7 @@
   input[type='range'] {
     width: 100%;
   }
-  .iframe-wrapper {
-    overflow: hidden;
-    box-shadow: -4px 4px 10px rgba(0, 0, 0, 0.2);
-  }
-  .placeholder,
-  .iframe-wrapper {
+  .placeholder {
     margin: auto;
   }
   .center {
@@ -174,5 +233,12 @@
   }
   .form {
     z-index: 3;
+  }
+  .addDashboardButton {
+    font-size: 16px;
+  }
+  .is-delete {
+    margin-top: 32px;
+    float: right;
   }
 </style>
