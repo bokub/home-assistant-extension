@@ -64,7 +64,7 @@
           <div class="field">
             <div class="control">
               <button class="button is-primary is-fullwidth" @click="save" :disabled="saved">
-                {{ saved ? 'Saved !' : 'Save' }}
+                {{ saved ? 'Saved!' : 'Save' }}
               </button>
             </div>
           </div>
@@ -73,14 +73,7 @@
         <div class="column center">
           <div class="subtitle">Preview</div>
           <div class="iframe-wrapper is-relative" v-if="options.url" :style="wrapperStyle">
-            <iframe
-              :src="options.url"
-              :width="options.width"
-              :height="options.height"
-              class="is-relative"
-              :style="iframeStyle"
-              frameborder="0"
-            ></iframe>
+            <Popup :previewOptions="options" />
           </div>
           <div
             v-else
@@ -94,7 +87,9 @@
 </template>
 
 <script>
-  export default {
+import Popup from '../popup/popup.vue';
+export default {
+  components: { Popup },
     data() {
       return {
         loaded: false,
