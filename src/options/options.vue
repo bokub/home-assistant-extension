@@ -87,9 +87,9 @@
 </template>
 
 <script>
-import Popup from '../popup/popup.vue';
-export default {
-  components: { Popup },
+  import Popup from '../popup/popup.vue';
+  export default {
+    components: { Popup },
     data() {
       return {
         loaded: false,
