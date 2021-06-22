@@ -1,17 +1,14 @@
 <template>
-  <section v-if="options && options.url">
-    <div :style="wrapperStyle">
-      <iframe
-        :src="options.url"
-        :height="options.height || '300'"
-        :width="options.width || '300'"
-        title="Home Assistant Chrome Extension"
-        name="extensionFrame"
-        :style="iframeStyle"
-      ></iframe>
-    </div>
-  </section>
-  <section v-else id="alert">
+  <div v-if="options && options.url" :style="wrapperStyle" class="wrapper">
+    <iframe
+      :src="options.url"
+      :height="options.height || '300'"
+      :width="options.width || '300'"
+      :style="iframeStyle"
+      frameborder="0"
+    ></iframe>
+  </div>
+  <section v-else class="alert">
     <p class="title">The Home Assistant extension is not configured</p>
     <p class="subtitle"><a href="/options.html" target="_blank">Open options</a></p>
   </section>
@@ -21,29 +18,24 @@
   export default {
     name: 'Popup',
     props: {
-      previewOptions: '',
+      previewOptions: null,
     },
     data() {
       return {
-        options: '',
+        options: null,
       };
     },
     computed: {
-      actualFrameHeight() {
-        return this.options.hideHeader ? this.options.height - this.options.headerHeight : this.options.height;
-      },
       iframeStyle() {
         return {
-          position: 'relative',
           top: this.options.hideHeader ? -this.options.headerHeight + 'px' : 0,
-          border: 0,
         };
       },
       wrapperStyle() {
+        const height = this.options.hideHeader ? this.options.height - this.options.headerHeight : this.options.height;
         return {
           width: this.options.width,
-          height: this.actualFrameHeight + 'px',
-          overflow: 'hidden',
+          height: height + 'px',
         };
       },
     },
@@ -65,17 +57,19 @@
     margin: 0;
     font-family: sans-serif;
 
-    iframe {
-      margin-bottom: -5px;
+    .wrapper {
+      overflow: hidden;
     }
 
-    #alert {
+    iframe {
+      margin-bottom: -5px;
+      position: relative;
+      border: 0;
+    }
+
+    .alert {
       min-width: 250px;
       padding: 5px 15px;
-
-      &.is-hidden {
-        display: none;
-      }
 
       .title {
         font-size: 15px;

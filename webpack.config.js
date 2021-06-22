@@ -11,7 +11,7 @@ module.exports = (env, argv) => {
   return {
     entry: {
       popup: './src/popup/popup.js',
-      options: './src/options/index.js',
+      options: './src/options/options.js',
       background: './src/background.js',
     },
     output: {

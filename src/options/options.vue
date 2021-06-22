@@ -72,14 +72,9 @@
 
         <div class="column center">
           <div class="subtitle">Preview</div>
-          <div class="iframe-wrapper is-relative" v-if="options.url" :style="wrapperStyle">
-            <Popup :previewOptions="options" />
+          <div class="preview-wrapper is-relative has-background-light" :style="wrapperStyle">
+            <Popup v-if="options.url" :previewOptions="options" />
           </div>
-          <div
-            v-else
-            class="placeholder is-relative has-background-light"
-            :style="{ height: options.height + 'px', width: options.width + 'px', ...iframeStyle }"
-          ></div>
         </div>
       </div>
     </div>
@@ -88,11 +83,11 @@
 
 <script>
   import Popup from '../popup/popup.vue';
+
   export default {
     components: { Popup },
     data() {
       return {
-        loaded: false,
         saved: false,
         options: {
           url: '',
@@ -104,17 +99,12 @@
       };
     },
     computed: {
-      actualHeaderHeight() {
-        return this.options.hideHeader ? this.options.headerHeight : 0;
-      },
       wrapperStyle() {
+        const headerHeight = this.options.hideHeader ? this.options.headerHeight : 0;
         return {
-          height: this.options.height - this.actualHeaderHeight + 'px',
+          height: this.options.height - headerHeight + 'px',
           width: this.options.width + 'px',
         };
-      },
-      iframeStyle() {
-        return { top: -this.actualHeaderHeight + 'px' };
       },
     },
     created() {
@@ -122,7 +112,6 @@
         if (options) {
           this.options = options;
         }
-        this.loaded = true;
       });
     },
     methods: {
@@ -156,12 +145,9 @@
   input[type='range'] {
     width: 100%;
   }
-  .iframe-wrapper {
+  .preview-wrapper {
     overflow: hidden;
     box-shadow: -4px 4px 10px rgba(0, 0, 0, 0.2);
-  }
-  .placeholder,
-  .iframe-wrapper {
     margin: auto;
   }
   .center {
