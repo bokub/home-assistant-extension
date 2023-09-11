@@ -15,6 +15,13 @@
 
 ## Setup
 
+Open your `configuration.yaml` file and add the following lines, then restart Home Assistant.
+
+```yaml
+http:
+  use_x_frame_options: false
+```
+
 In your Lovelace dashboard, **create a new view** and add a few cards that you want to see in your extension
 
 Here are a few tips:
