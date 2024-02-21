@@ -18,9 +18,13 @@ jobs:
 
       - name: Build for Chrome
         run: npm run build:chrome
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider
 
       - name: Build for Firefox
         run: npm run build:firefox
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider
 
       - name: Zip for Chrome
         if: startsWith(github.ref, 'refs/tags/')
