@@ -6,6 +6,7 @@
       :width="options.width || '300'"
       :style="iframeStyle"
       frameborder="0"
+      name="ha-main-window"
     ></iframe>
   </div>
   <section v-else class="alert">
