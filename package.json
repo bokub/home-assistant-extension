@@ -24,10 +24,10 @@
     "clean-webpack-plugin": "^4.0.0-alpha.0",
     "copy-webpack-plugin": "^8.1.1",
     "css-loader": "^5.2.4",
-    "husky": "^6.0.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
     "mini-css-extract-plugin": "^1.5.0",
-    "prettier": "^2.2.1",
-    "pretty-quick": "^3.1.0",
+    "prettier": "^3.2.5",
     "sass": "^1.32.11",
     "sass-loader": "^11.0.1",
     "string-replace-loader": "^3.0.1",
@@ -36,5 +36,8 @@
     "vue-template-compiler": "^2.6.12",
     "webpack": "^5.35.1",
     "webpack-cli": "^4.6.0"
+  },
+  "lint-staged": {
+    "*": "prettier --write --ignore-unknown"
   }
 }
